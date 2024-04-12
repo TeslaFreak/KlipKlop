@@ -9,6 +9,7 @@ import {
 import { TailwindIndicator } from "@/components/TailwindIndicator";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -28,20 +31,30 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <div className="z-20 w-full items-center justify-between font-mono text-sm lg:fixed p-8">
             <div className="fixed bottom-0 lg:top-0 lg:items-start gap-4 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t lg:bg-gradient-to-b from-white via-white dark:from-black dark:via-black ">
-              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+              <Link
+                href="/"
+                className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16"
+              >
                 <MagnifyingGlassIcon />
                 <text>Explore</text>
-              </button>
-              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+              </Link>
+              <Link
+                href="/create"
+                className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16"
+              >
                 <PlusCircledIcon />
                 <text>Create</text>
-              </button>
-              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+              </Link>
+              <Link
+                href="/saved"
+                className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16"
+              >
                 <GridIcon />
                 <text>Saved</text>
-              </button>
+              </Link>
             </div>
           </div>
+          {modal}
           {children}
           <TailwindIndicator />
         </ThemeProvider>

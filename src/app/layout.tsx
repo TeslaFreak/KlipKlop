@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {
+  MagnifyingGlassIcon,
+  PlusCircledIcon,
+  GridIcon,
+} from "@radix-ui/react-icons";
+import { TailwindIndicator } from "@/components/TailwindIndicator";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +24,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={cn(inter.className, "mode-dark")}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <div className="z-20 w-full items-center justify-between font-mono text-sm lg:fixed p-8">
+            <div className="fixed bottom-0 lg:top-0 lg:items-start gap-4 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t lg:bg-gradient-to-b from-white via-white dark:from-black dark:via-black ">
+              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+                <MagnifyingGlassIcon />
+                <text>Explore</text>
+              </button>
+              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+                <PlusCircledIcon />
+                <text>Create</text>
+              </button>
+              <button className="flex place-items-center flex-col gap-1 mb-1 lg:mt-4 w-16">
+                <GridIcon />
+                <text>Saved</text>
+              </button>
+            </div>
+          </div>
+          {children}
+          <TailwindIndicator />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

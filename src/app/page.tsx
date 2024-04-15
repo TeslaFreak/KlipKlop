@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ReactPlayer from "react-player/youtube";
+import Link from "next/link";
 
 async function getData() {
   const res = await fetch(
@@ -22,19 +22,19 @@ export default async function Home() {
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left lg:mt-16">
         {videoList.map((video: any) => {
           return (
-            <a
-              href="/"
+            <Link
+              href={`/${video.id}`}
               className="group rounded-lg border border-transparent px-4 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-              target="_blank"
+              key={video.id}
               rel="noopener noreferrer"
             >
               <Image
                 src={video.snippet.thumbnails.standard.url}
                 width={video.snippet.thumbnails.standard.width}
                 height={video.snippet.thumbnails.standard.height}
-                alt={video.title}
+                alt={video.snippet.title}
               />
-            </a>
+            </Link>
           );
         })}
       </div>

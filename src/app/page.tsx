@@ -4,7 +4,8 @@ import Link from "next/link";
 
 async function getData() {
   const res = await fetch(
-    `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cid&chart=mostPopular&maxResults=30&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`
+    `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cid&chart=mostPopular&maxResults=30&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`,
+    { cache: "no-store" }
   );
 
   if (!res.ok) {

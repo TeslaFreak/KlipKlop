@@ -1,3 +1,4 @@
+import StoreInitializer from "@/components/StoreInitializer";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,10 +17,12 @@ async function getData() {
 export default async function Home() {
   const data = await getData();
   const videoList = data.items;
+  const videoIdList = videoList.map((video: any) => video.id);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-1">
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left lg:mt-16">
+        <StoreInitializer newQueue={videoIdList} />
         {videoList.map((video: any) => {
           return (
             <Link

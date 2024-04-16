@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# MySaves video saving app
+
+Save and explore youtube videos
+
+## Hosted at a <https://my-saves-kappa.vercel.app>
+
 
 ## Getting Started
 

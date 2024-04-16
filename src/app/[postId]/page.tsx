@@ -3,6 +3,7 @@ import Head from "next/head";
 import { ActionButtonsColumn } from "@/components/ActionButtonsColumn";
 import { ForwardButton } from "@/components/ForwardButton";
 import { BackButton } from "@/components/BackButton";
+import type { Metadata, ResolvingMetadata } from "next";
 
 async function getData(videoId: string) {
   const post = await fetch(
@@ -20,24 +21,40 @@ async function getData(videoId: string) {
   };
 }
 
-export default async function Page({ params }: { params: { postId: string } }) {
+export async function generateMetadata(
+  { params }: { params: { postId: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const videoId = params.postId;
   const data = await getData(videoId);
   const video = data.posts.items[0];
+
+  return {
+    title: `${video.snippet.title} On MySaves`,
+    description: video.snippet.description,
+    openGraph: {
+      title: `${video.snippet.title} On MySaves`,
+      description: video.snippet.description,
+      url: `https://my-saves-kappa.vercel.app/${videoId}`,
+      siteName: "MySaves",
+      images: [
+        {
+          url: video.snippet.thumbnails.standard.url, // Must be an absolute URL
+          width: video.snippet.thumbnails.width,
+          height: video.snippet.thumbnails.height,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+export default async function Page({ params }: { params: { postId: string } }) {
+  const videoId = params.postId;
+  const data = await getData(videoId);
   return (
     <>
-      <Head>
-        <title>{video.snippet.title} On MySaves</title>
-        <meta
-          property="og:image"
-          content={video.snippet.thumbnails.standard.url}
-        />
-        <meta
-          name="twitter:image"
-          content={video.snippet.thumbnails.standard.url}
-        />
-        <meta name="description" content={video.snippet.description} />
-      </Head>
       <main className="flex min-h-[80vh] lg:min-h-screen flex-col items-center p-1 justify-center">
         <div className="w-full max-w-full flex lg:justify-center items-center flex-col lg:flex-row">
           <BackButton videoId={videoId} />

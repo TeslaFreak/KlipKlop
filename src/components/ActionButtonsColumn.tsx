@@ -12,20 +12,18 @@ export function ActionButtonsColumn({
   videoId: string;
   saved: boolean;
 }) {
-  // const { saves, add, remove } = useSavesStore();
-
   const handleOnSave = () => {
     saveVideo(videoId);
-    // add(videoId);
   };
 
   const handleOnRemove = () => {
     unsaveVideo(videoId);
-    // remove(videoId);
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${videoId}`);
+    navigator.clipboard.writeText(
+      `https://my-saves-kappa.vercel.app/${videoId}`
+    );
     const isMobile = window.innerWidth <= 600;
     const toastPosition = isMobile ? "top-right" : "bottom-right";
     toast("URL copied to clipboard", {

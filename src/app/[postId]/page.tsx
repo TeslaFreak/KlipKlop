@@ -39,7 +39,7 @@ export async function generateMetadata(
       siteName: "MySaves",
       images: [
         {
-          url: video.snippet.thumbnails.standard.url, // Must be an absolute URL
+          url: video.snippet.thumbnails.standard.url,
           width: video.snippet.thumbnails.width,
           height: video.snippet.thumbnails.height,
         },
